@@ -61,6 +61,3 @@ Si vous souhaitez proposer des améliorations (corrections, mise en forme, nouve
 - Le formulaire de contact du site: `contact.php`.
 - Vous pouvez aussi ajouter un lien vers votre adresse e-mail ou profils (LinkedIn, GitHub) dans `index.html` si vous le souhaitez.
 
-## Licence
-
-Ce projet est fourni sans licence explicite. Si vous souhaitez le partager publiquement, ajoutez un fichier `LICENSE` (par exemple MIT) selon vos préférences.
