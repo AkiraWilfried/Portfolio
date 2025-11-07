@@ -19,7 +19,7 @@
       <i class="fas fa-code"></i>
       Shadow Walker
     </div>
-    <ul class="nav-menu">
+  <ul class="nav-menu" id="nav-menu" aria-hidden="true">
       <li><a href="#hero" class="nav-link active"><i class="fas fa-house"></i> Accueil</a></li>
       <li><a href="#about" class="nav-link"><i class="fas fa-user"></i> À propos</a></li>
       <li><a href="#skills" class="nav-link"><i class="fas fa-lightbulb"></i> Compétences</a></li>
@@ -61,16 +61,12 @@
           <a href="https://www.linkedin.com/in/kamgaing-simo-wilfried/" class="social-icon linkedin" data-label="LinkedIn" target="_blank">
             <i class="fab fa-linkedin-in"></i>
           </a>
-          <!-- <a href="https://youtube.com/@tonprofil" class="social-icon youtube" data-label="YouTube" target="_blank">
-            <i class="fab fa-youtube"></i>
-          </a> -->
           <a href="https://shadowstack.hashnode.dev" class="social-icon blog" data-label="Blog" target="_blank">
             <i class="fas fa-blog"></i>
           </a>
-          <a href="https://t.me/AkiraWilfried" class="social-icon telegram" data-label="Telegram" target="_blank">
+          <a href="https://t.me/shadow_walker20" class="social-icon telegram" data-label="Telegram" target="_blank">
             <i class="fab fa-telegram"></i>
           </a>
-
           <a href="https://wa.me/237621991656" class="social-icon whatsapp" data-label="WhatsApp" target="_blank">
             <i class="fab fa-whatsapp"></i>
           </a>
@@ -202,7 +198,7 @@
       </div>
 
       <div class="skill-card fade-in hidden" data-category="database">
-        <div class="skill-icon"><i class="fas fa-leaf"></i></div>
+        <div class="skill-icon"><i class="fas fa-database"></i></div>
         <h3 class="skill-name">postgreSQL</h3>
         <p class="skill-level"><i class="fas fa-star"></i> Débutant - 30%</p>
         <div class="progress-bar"><div class="progress-fill" data-progress="30"></div></div>
@@ -273,7 +269,6 @@
               <span class="tech-tag">Expo</span>
             </div>
             <div class="project-links">
-              <!-- <a href="#" class="project-link"><i class="fas fa-link"></i> Live</a> -->
               <a href="https://github.com/AkiraWilfried/temperatureConverter" class="project-link"><i class="fab fa-github"></i> Code</a>
             </div>
           </div>
@@ -304,65 +299,12 @@
             <div class="project-tech">
               <span class="tech-tag">React.js</span>
               <span class="tech-tag">JavaScript</span>
-              <!-- <span class="tech-tag">Node.js</span> -->
             </div>
             <div class="project-links">
-              <!-- <a href="#" class="project-link"><i class="fas fa-link"></i> Live</a> -->
               <a href="https://github.com/AkiraWilfried/Gestion_des_Stagiaires" class="project-link"><i class="fab fa-github"></i> Code</a>
             </div>
           </div>
         </div>
-
-        <!-- <div class="project-card fade-in" data-category="mobile">
-          <div class="project-image">Chat App</div>
-          <div class="project-content">
-            <div class="project-title">Application de Chat</div>
-            <div class="project-description">Application de messagerie instantanée avec notifications push et partage de fichiers en temps réel.</div>
-            <div class="project-tech">
-              <span class="tech-tag">Flutter</span>
-              <span class="tech-tag">Firebase</span>
-              <span class="tech-tag">Socket.io</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-link"></i> Live</a>
-              <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div class="project-card fade-in" data-category="web">
-          <div class="project-image">Blog</div>
-          <div class="project-content">
-            <div class="project-title">Platform de Blog</div>
-            <div class="project-description">Plateforme de blogging avec système de commentaires et éditeur markdown intégré.</div>
-            <div class="project-tech">
-              <span class="tech-tag">Next.js</span>
-              <span class="tech-tag">MongoDB</span>
-              <span class="tech-tag">Tailwind</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-link"></i> Live</a>
-              <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div class="project-card fade-in" data-category="mobile">
-          <div class="project-image">Fitness</div>
-          <div class="project-content">
-            <div class="project-title">App Fitness Tracker</div>
-            <div class="project-description">Application de suivi fitness avec programmes d'entraînement personnalisés.</div>
-            <div class="project-tech">
-              <span class="tech-tag">React Native</span>
-              <span class="tech-tag">SQLite</span>
-              <span class="tech-tag">Charts</span>
-            </div>
-            <div class="project-links">
-              <a href="#" class="project-link"><i class="fas fa-link"></i> Live</a>
-              <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-            </div>
-          </div>
-        </div> -->
 
       </div>
     </div>
@@ -377,48 +319,45 @@
             <p class="section-subtitle">Mes derniers articles et tutoriels</p>
         </div>
         <div class="blog-grid">
-            <div class="blog-card fade-in">
-                <div class="blog-image"><i class="fas fa-code"></i></div>
-                <div class="blog-content">
-                    <div class="blog-title">Guide complet React Hooks</div>
-                    <div class="blog-excerpt">Découvrez tout ce qu'il faut savoir sur les React Hooks pour améliorer vos composants fonctionnels.</div>
-                    <div class="blog-meta">
-                        <span class="blog-date">5 jan 2025</span>
-                        <a href="https://shadowstack.hashnode.dev" target="_blank" class="blog-link">
-                          Lire 
-                          <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+          <article class="blog-card fade-in">
+            <div class="blog-image">
+              <i class="fas fa-globe"></i>
             </div>
-            <div class="blog-card fade-in">
-                <div class="blog-image"><i class="fas fa-mobile-alt"></i></div>
-                <div class="blog-content">
-                    <div class="blog-title">Flutter vs React Native</div>
-                    <div class="blog-excerpt">Comparaison détaillée entre les deux frameworks de développement mobile cross-platform.</div>
-                    <div class="blog-meta">
-                        <span class="blog-date">2 jan 2025</span>
-                        <a href="https://shadowstack.hashnode.dev" target="_blank" class="blog-link">
-                          Lire 
-                          <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+            <div class="blog-content">
+              <h3 class="blog-title">Mes premiers pas sur le web</h3>
+              <p class="blog-excerpt">Comment j'ai commencé, où j'en suis aujourd'hui et les technologies que je maîtrise.</p>
+              <div class="blog-meta">
+                <time datetime="2025-07-03" class="blog-date">03 Jul. 2025</time>
+                <a href="https://shadowstack.hashnode.dev/mes-premiers-pas-sur-le-web" target="_blank" rel="noopener noreferrer" class="blog-link">Lire <i class="fas fa-arrow-right"></i></a>
+              </div>
             </div>
-            <div class="blog-card fade-in">
-                <div class="blog-image"><i class="fas fa-database"></i></div>
-                <div class="blog-content">
-                    <div class="blog-title">Optimisation des API Node.js</div>
-                    <div class="blog-excerpt">Techniques avancées pour améliorer les performances de vos API avec Node.js et Express.</div>
-                    <div class="blog-meta">
-                        <span class="blog-date">28 déc 2024</span>
-                        <a href="https://shadowstack.hashnode.dev" target="_blank" class="blog-link">
-                          Lire 
-                          <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+          </article>
+          <article class="blog-card fade-in">
+            <div class="blog-image">
+              <i class="fab fa-js"></i>
             </div>
+            <div class="blog-content">
+              <h3 class="blog-title">Partie 1 – Premiers pas avec JavaScript</h3>
+              <p class="blog-excerpt">Introduction aux bases de JavaScript : les prérequis et concepts essentiels.</p>
+              <div class="blog-meta">
+                <time datetime="2025-7-18" class="blog-date">18 Jul. 2025</time>
+                <a href="https://shadowstack.hashnode.dev/partie-1-premiers-pas-avec-javascript" target="_blank" rel="noopener noreferrer" class="blog-link">Lire <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+          <article class="blog-card fade-in">
+            <div class="blog-image">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="blog-content">
+              <h3 class="blog-title">Mon premier festival tech – West Tech Festival</h3>
+              <p class="blog-excerpt">Retour d'expérience au West Tech Festival : conférences, rencontres et opportunités pour les développeurs.</p>
+              <div class="blog-meta">
+                <time datetime="2025-08-06" class="blog-date">06 Aug. 2025</time>
+                <a href="https://shadowstack.hashnode.dev/mon-premier-festival-tech-west-tech-festival" target="_blank" rel="noopener noreferrer" class="blog-link">Lire <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
         </div>
         <div style="text-align:center; margin-top:3rem;">
             <a href="https://shadowstack.hashnode.dev" target="_blank" class="btn btn-primary">
@@ -432,7 +371,7 @@
 <!-- Contact Section -->
 <section id="contact" class="section" style="background: var(--bg-secondary);">
     <div class="container">
-        <div class="section-header fade-in" method="POST" action="contact.php">
+        <div class="section-header fade-in">
             <h2 class="section-title">Contactez-moi</h2>
             <p class="section-subtitle">Entrons en contact pour vos projets</p>
         </div>
@@ -467,6 +406,46 @@
                 </div>
                 <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Envoyer</button>
             </form>
+
+            <!-- Contact method modal -->
+            <div id="contact-method-modal" class="modal-overlay" aria-hidden="true">
+              <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+                <header class="modal-header">
+                  <h3 id="modal-title">Comment souhaitez-vous envoyer le message ?</h3>
+                  <button id="modal-close" class="modal-close" aria-label="Fermer">✕</button>
+                </header>
+                <div class="modal-body">
+                  <p class="modal-instruction">Choisissez un moyen pour nous contacter. Vous pouvez envoyer via Email, Telegram ou WhatsApp.</p>
+
+                  <div class="method-options">
+                    <label class="method-option">
+                      <input type="radio" name="contact-method" value="email" checked>
+                      <span class="method-icon email"><i class="fas fa-envelope"></i></span>
+                      <span>Email — Ouvrir le mail</span>
+                    </label>
+                    <label class="method-option">
+                      <input type="radio" name="contact-method" value="telegram">
+                      <span class="method-icon telegram"><i class="fab fa-telegram-plane"></i></span>
+                      <span>Telegram — Ouvrir Telegram</span>
+                    </label>
+                    <label class="method-option">
+                      <input type="radio" name="contact-method" value="whatsapp">
+                      <span class="method-icon whatsapp"><i class="fab fa-whatsapp"></i></span>
+                      <span>WhatsApp — Ouvrir WhatsApp</span>
+                    </label>
+                  </div>
+
+                  <div class="modal-preview">
+                    <h4>Aperçu du message</h4>
+                    <div id="modal-message-preview" class="preview-box"></div>
+                  </div>
+                </div>
+                <footer class="modal-actions">
+                  <button type="button" id="modal-cancel" class="btn">Annuler</button>
+                  <button type="button" id="modal-confirm" class="btn btn-primary">Confirmer et envoyer</button>
+                </footer>
+              </div>
+            </div>
         </div>
     </div>
 </section>
@@ -485,16 +464,12 @@
                   <a href="https://www.linkedin.com/in/kamgaing-simo-wilfried/" class="social-icon linkedin" data-label="LinkedIn" target="_blank">
                     <i class="fab fa-linkedin-in"></i>
                   </a>
-                  <!-- <a href="https://youtube.com/@tonprofil" class="social-icon youtube" data-label="YouTube" target="_blank">
-                    <i class="fab fa-youtube"></i>
-                  </a> -->
                   <a href="https://shadowstack.hashnode.dev" class="social-icon blog" data-label="Blog" target="_blank">
                     <i class="fas fa-blog"></i>
                   </a>
-                  <a href="https://t.me/AkiraWilfried" class="social-icon telegram" data-label="Telegram" target="_blank">
+                  <a href="https://t.me/shadow_walker20" class="social-icon telegram" data-label="Telegram" target="_blank">
                     <i class="fab fa-telegram"></i>
                   </a>
-
                   <a href="https://wa.me/237621991656" class="social-icon whatsapp" data-label="WhatsApp" target="_blank">
                     <i class="fab fa-whatsapp"></i>
                   </a>

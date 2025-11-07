@@ -1,4 +1,4 @@
-// script.js - version corrigée avec ScrollSpy fonctionnel
+// script.js - Portfolio Shadow Walker
 (() => {
 
   /* ---------- HELPERS ---------- */
@@ -72,12 +72,23 @@
   const mobileMenu = $('.mobile-menu');
   const navMenu = $('.nav-menu');
 
+  // accessibility: ensure mobile menu has proper attributes
+  if (mobileMenu) {
+    try {
+      mobileMenu.setAttribute('role', 'button');
+      mobileMenu.setAttribute('tabindex', '0');
+      mobileMenu.setAttribute('aria-controls', navMenu?.id || 'nav-menu');
+      mobileMenu.setAttribute('aria-expanded', 'false');
+    } catch (e) {}
+  }
+
   if (mobileMenu && navMenu) {
     mobileMenu.addEventListener('click', () => {
       navMenu.classList.toggle('active');
       const spans = mobileMenu.querySelectorAll('span');
       const open = navMenu.classList.contains('active');
 
+      // Toggle hamburger -> X animation
       if (open) {
         spans[0].style.transform = 'rotate(-45deg) translate(-5px,6px)';
         spans[1].style.opacity = '0';
@@ -86,6 +97,12 @@
         spans[0].style.transform = spans[2].style.transform = 'none';
         spans[1].style.opacity = '1';
       }
+
+      // Accessibility attributes
+      try {
+        mobileMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      } catch (e) {}
     });
   }
 
@@ -195,12 +212,14 @@
           const spans = mobileMenu.querySelectorAll('span');
           spans[0].style.transform = spans[2].style.transform = 'none';
           spans[1].style.opacity = '1';
+          try { mobileMenu.setAttribute('aria-expanded', 'false'); } catch (e) {}
+          try { navMenu.setAttribute('aria-hidden', 'true'); } catch (e) {}
         }
       }
     });
   });
 
-  /* ---------- CONTACT FORM AVEC AJAX ---------- */
+  /* ---------- CONTACT FORM AVEC MODAL ---------- */
   const contactForm = $('.contact-form');
 
   function showToast(text, type = 'info', ms = 3000) {
@@ -217,42 +236,209 @@
   }
 
   if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
+    // Modal elements
+    const modalOverlay = $('#contact-method-modal');
+    const modalPreview = $('#modal-message-preview');
+    const modalCancel = $('#modal-cancel');
+    const modalConfirm = $('#modal-confirm');
+    const modalCloseBtn = $('#modal-close');
+
+    // Helpers to open/close modal
+    function openModal() {
+      if (!modalOverlay) return;
+      modalOverlay.setAttribute('aria-hidden', 'false');
+      const firstRadio = modalOverlay.querySelector('input[name="contact-method"]');
+      if (firstRadio) firstRadio.focus();
+    }
+
+    function closeModal() {
+      if (!modalOverlay) return;
+      modalOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    // Extract contact info from page
+    const whatsappAnchor = document.querySelector('.social-icon.whatsapp');
+    const telegramAnchor = document.querySelector('.social-icon.telegram');
+    
+    let WHATSAPP_NUMBER = '237621991656';
+    if (whatsappAnchor && whatsappAnchor.href) {
+      const m = whatsappAnchor.href.match(/wa\.me\/(\d+)/);
+      if (m) WHATSAPP_NUMBER = m[1];
+    }
+    
+    let TELEGRAM_USERNAME = 'shadow_walker20';
+    if (telegramAnchor && telegramAnchor.href) {
+      const t = telegramAnchor.href.split('/').pop();
+      if (t) TELEGRAM_USERNAME = t;
+    }
+
+    // Email destinataire
+    const RECIPIENT_EMAIL = 'wkamgaingsimo@gmail.com';
+
+    // Escape HTML for safe preview rendering
+    function escapeHtml(unsafe) {
+      return String(unsafe || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Build formatted message
+    function buildFormattedMessage(name, email, message, type = 'preview') {
+      const n = escapeHtml(name);
+      const e = escapeHtml(email);
+      const m = escapeHtml(message);
+
+      if (type === 'preview') {
+        return `<p>salut,</p>
+<p>Je m'appelle <strong>${n}</strong> et je vous contacte via votre portfolio.</p>
+<p>Mon adresse email : <strong>${e}</strong></p>
+<p>Mon message :</p>
+<div style="white-space:pre-wrap;">${m}</div>
+<p>Cordialement,<br><strong>${n}</strong></p>`;
+      }
+
+      if (type === 'email') {
+        return `salut,
+
+Je m'appelle ${name} et je vous contacte via votre portfolio.
+
+Mon adresse email : ${email}
+
+Mon message :
+${message}
+
+Cordialement,
+${name}`;
+      }
+
+      // WhatsApp / Telegram
+      const text = `salut!
+
+Je m'appelle *${name}* et je vous contacte via votre portfolio.
+
+Mon adresse email : *${email}*
+
+Mon message :
+${message}
+
+Cordialement,
+${name}
+
+Via : ${window.location.href}`;
+      
+      return text;
+    }
+
+    // Send handlers
+    function sendByEmailClient(name, email, message) {
+      const subject = encodeURIComponent(`Nouveau message de ${name} - Portfolio`);
+      const body = encodeURIComponent(buildFormattedMessage(name, email, message, 'email'));
+      
+      // ✅ Si tu veux ouvrir directement Gmail
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${RECIPIENT_EMAIL}&su=${subject}&body=${body}`;
+      
+      window.open(gmailUrl, '_blank');
+      showToast('Ouverture de Gmail...', 'info', 4000);
+      setTimeout(() => contactForm.reset(), 800);
+      console.log('Email destinataire :', RECIPIENT_EMAIL);
+    }
+
+    function sendByWhatsApp(name, email, message) {
+      const formattedText = buildFormattedMessage(name, email, message, 'whatsapp');
+      const encoded = encodeURIComponent(formattedText);
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
+      window.open(url, '_blank');
+      showToast('Ouverture de WhatsApp...', 'info', 4000);
+      setTimeout(() => contactForm.reset(), 800);
+    }
+
+    function sendByTelegram(name, email, message) {
+      const formattedText = buildFormattedMessage(name, email, message, 'telegram');
+      const encoded = encodeURIComponent(formattedText);
+      const url = `https://t.me/${TELEGRAM_USERNAME}?text=${encoded}`;
+      window.open(url, '_blank');
+      showToast('Ouverture de Telegram...', 'info', 4000);
+      setTimeout(() => contactForm.reset(), 800);
+    }
+
+    // Modal interactions
+    if (modalCancel) modalCancel.addEventListener('click', closeModal);
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+
+    if (modalOverlay) {
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+    }
+
+    if (modalConfirm) {
+      modalConfirm.addEventListener('click', () => {
+        const method = modalOverlay.querySelector('input[name="contact-method"]:checked')?.value || 'email';
+        const name = contactForm.querySelector('input[name="name"]')?.value || '';
+        const email = contactForm.querySelector('input[name="email"]')?.value || '';
+        const message = contactForm.querySelector('textarea[name="message"]')?.value || '';
+
+        closeModal();
+
+        if (method === 'email') {
+          sendByEmailClient(name, email, message);
+        } else if (method === 'whatsapp') {
+          sendByWhatsApp(name, email, message);
+        } else if (method === 'telegram') {
+          sendByTelegram(name, email, message);
+        }
+      });
+    }
+
+    // Update preview
+    function updateModalPreview() {
+      const name = contactForm.querySelector('input[name="name"]')?.value || '';
+      const email = contactForm.querySelector('input[name="email"]')?.value || '';
+      const message = contactForm.querySelector('textarea[name="message"]')?.value || '';
+      if (modalPreview) {
+        modalPreview.innerHTML = buildFormattedMessage(name, email, message, 'preview');
+      }
+    }
+
+    // Live update preview while typing
+    const nameInput = contactForm.querySelector('input[name="name"]');
+    const emailInput = contactForm.querySelector('input[name="email"]');
+    const messageInput = contactForm.querySelector('textarea[name="message"]');
+    [nameInput, emailInput, messageInput].forEach(inp => {
+      if (inp) inp.addEventListener('input', updateModalPreview);
+    });
+
+    // Update preview when changing method
+    const methodRadios = modalOverlay ? modalOverlay.querySelectorAll('input[name="contact-method"]') : [];
+    methodRadios.forEach(r => r.addEventListener('change', updateModalPreview));
+
+    // Show modal on submit
+    contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
+      const name = contactForm.querySelector('input[name="name"]')?.value.trim() || '';
+      const email = contactForm.querySelector('input[name="email"]')?.value.trim() || '';
+      const message = contactForm.querySelector('textarea[name="message"]')?.value.trim() || '';
       
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
-      
-      const formData = new FormData(contactForm);
-      
-      try {
-        const response = await fetch('contact.php', {
-          method: 'POST',
-          body: formData
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-          showToast('Message envoyé avec succès! Je vous répondrai bientôt.', 'success');
-          contactForm.reset();
-        } else {
-          showToast(data.message || 'Erreur lors de l\'envoi du message', 'error');
-        }
-        
-      } catch (error) {
-        showToast('Erreur de connexion. Veuillez réessayer.', 'error');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
+      if (!name || !email || !message) {
+        showToast('Veuillez remplir tous les champs du formulaire.', 'error');
+        return;
       }
+
+      updateModalPreview();
+      openModal();
+    });
+
+    // Close modal on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
     });
   }
 
-  /* ---------- SCROLLSPY CORRIGÉ ---------- */
+  /* ---------- SCROLLSPY ---------- */
   function initScrollSpy() {
     const sections = $$('section[id]');
     const navLinks = $$('.nav-menu a[href^="#"]');
@@ -260,11 +446,10 @@
     if (sections.length === 0 || navLinks.length === 0) return;
 
     function updateActiveLink() {
-      const scrollPos = window.scrollY + 150; // Offset pour le header
+      const scrollPos = window.scrollY + 150;
       
       let currentSection = '';
       
-      // Trouver la section actuellement visible
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
@@ -274,17 +459,14 @@
         }
       });
       
-      // Si on est tout en haut de la page
       if (window.scrollY < 100) {
         currentSection = 'hero';
       }
       
-      // Si on est tout en bas de la page
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
         currentSection = sections[sections.length - 1].getAttribute('id');
       }
       
-      // Mettre à jour les liens
       navLinks.forEach(link => {
         link.classList.remove('active');
         const href = link.getAttribute('href');
@@ -294,10 +476,7 @@
       });
     }
     
-    // Écouter le scroll avec debounce
     window.addEventListener('scroll', debounce(updateActiveLink, 100));
-    
-    // Initialiser au chargement
     updateActiveLink();
   }
 
@@ -364,7 +543,7 @@
     initLazy();
     initScrollTop();
     initParallax();
-    initScrollSpy(); // SCROLLSPY ICI
+    initScrollSpy();
 
     // Animation des progress bars visibles au chargement
     $$('.skill-card').forEach(card => {
