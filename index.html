@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- <script>
+    // ✅ Appliquer immédiatement le thème sauvegardé avant que la page s'affiche
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.body?.setAttribute('data-theme', theme);
+      } catch (e) {
+        console.warn('Impossible de charger le thème:', e);
+      }
+    })();
+  </script> -->
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shadow Walker | Développeur Web & Mobile - Portfolio Professionnel</title>
