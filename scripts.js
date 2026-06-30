@@ -14,7 +14,7 @@
   };
 
   /* ---------- TYPEWRITER ---------- */
-  const phrases = ["Développeur web", "Développeur mobile", "UI/UX designer", "Rédacteur web"];
+  const phrases = ["Développeur web", "Développeur mobile", "UI/UX designer"];
   const typingElement = $('#typewriter');
   let cp = 0;
   let cc = 0;
